@@ -1,0 +1,29 @@
+#!/bin/bash
+# Git Hook: Auto-push on merge to main
+
+# Get current branch
+CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
+
+# Only auto-push if we're on main branch
+if [ "$CURRENT_BRANCH" = "main" ]; then
+    echo "🚀 Detected merge to main branch - Auto-pushing to GitHub..."
+    
+    # Check if remote exists
+    if git remote get-url origin > /dev/null 2>&1; then
+        # Push to origin
+        git push origin main --tags
+        
+        if [ $? -eq 0 ]; then
+            echo "✅ Successfully pushed to GitHub!"
+        else
+            echo "❌ Failed to push to GitHub. Please push manually."
+            exit 1
+        fi
+    else
+        echo "⚠️  No remote repository configured. Skipping auto-push."
+    fi
+else
+    echo "📝 Commit on '$CURRENT_BRANCH' branch - Staying local (no auto-push)"
+fi
+
+exit 0

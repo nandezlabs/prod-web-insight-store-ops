@@ -1,0 +1,65 @@
+[build]
+  functions = "."
+
+[functions]
+  node_bundler = "esbuild"
+  
+[[redirects]]
+  from = "/api/auth/login"
+  to = "/.netlify/functions/auth-login"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/auth/logout"
+  to = "/.netlify/functions/auth-logout"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/auth/validate"
+  to = "/.netlify/functions/auth-validate"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/store/checklist"
+  to = "/.netlify/functions/store-checklist"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/store/inventory"
+  to = "/.netlify/functions/store-inventory"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/store/replacement"
+  to = "/.netlify/functions/store-replacement"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/admin/dashboard"
+  to = "/.netlify/functions/admin-dashboard"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/admin/forms"
+  to = "/.netlify/functions/admin-forms"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/admin/force-logout"
+  to = "/.netlify/functions/admin-force-logout"
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"

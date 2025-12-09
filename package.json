@@ -1,0 +1,42 @@
+{
+  "name": "insight-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Insight Store Operations Platform - Monorepo",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "build:types": "npm run build -w @insight/shared-types",
+    "build:utils": "npm run build -w @insight/shared-utils",
+    "build:admin": "npm run build -w @insight/admin-app",
+    "build:store": "npm run build -w @insight/store-app",
+    "dev:admin": "npm run dev -w @insight/admin-app",
+    "dev:store": "npm run dev -w @insight/store-app",
+    "clean": "npm run clean --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/insight"
+  },
+  "keywords": [
+    "monorepo",
+    "react",
+    "typescript",
+    "store-operations",
+    "admin-dashboard"
+  ],
+  "author": "",
+  "license": "MIT"
+}

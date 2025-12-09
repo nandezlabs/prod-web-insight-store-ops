@@ -1,0 +1,23 @@
+#!/bin/bash
+# Git Hook: Auto-push on version bump
+
+# Get the diff of package.json files
+VERSION_CHANGED=$(git diff --cached --name-only | grep -E 'package\.json$')
+
+if [ -n "$VERSION_CHANGED" ]; then
+    # Check if version field changed in any package.json
+    for file in $VERSION_CHANGED; do
+        VERSION_DIFF=$(git diff --cached "$file" | grep '"version"')
+        
+        if [ -n "$VERSION_DIFF" ]; then
+            echo "🔖 Version bump detected in $file"
+            CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
+            
+            if [ "$CURRENT_BRANCH" = "main" ]; then
+                echo "📦 Will auto-push after commit due to version change"
+            fi
+        fi
+    done
+fi
+
+exit 0

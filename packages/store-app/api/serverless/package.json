@@ -1,0 +1,27 @@
+{
+  "name": "store-app-serverless",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx dev-server.ts",
+    "start": "node dev-server.js",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.15",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "tsx": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "netlify-cli": "^23.12.3",
+    "typescript": "^5.3.3",
+    "vercel": "^49.1.2",
+    "vitest": "^4.0.15"
+  }
+}

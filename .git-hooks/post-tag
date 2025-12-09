@@ -1,0 +1,21 @@
+#!/bin/bash
+# Git Hook: Auto-push on tag creation
+
+TAG_NAME="$1"
+
+echo "🏷️  Tag '$TAG_NAME' created - Auto-pushing to GitHub..."
+
+# Push the tag to remote
+if git remote get-url origin > /dev/null 2>&1; then
+    git push origin "$TAG_NAME"
+    
+    if [ $? -eq 0 ]; then
+        echo "✅ Tag pushed to GitHub!"
+    else
+        echo "❌ Failed to push tag. Please push manually: git push origin $TAG_NAME"
+    fi
+else
+    echo "⚠️  No remote repository configured."
+fi
+
+exit 0

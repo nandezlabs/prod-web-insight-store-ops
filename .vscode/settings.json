@@ -1,0 +1,31 @@
+{
+  // GitHub Copilot Agent Permissions
+  "github.copilot.chat.terminalCommand": "prompt",
+  "github.copilot.chat.fileSearch": true,
+  "github.copilot.chat.codeActions": true,
+  "github.copilot.chat.runCommand": true,
+
+  // Allow Copilot to make file changes
+  "github.copilot.chat.allowFileCreation": true,
+  "github.copilot.chat.allowFileEdit": true,
+  "github.copilot.chat.allowFileDeletion": "prompt",
+
+  // Allow workspace modifications
+  "github.copilot.chat.allowWorkspaceEdit": true,
+
+  // Enhanced capabilities
+  "github.copilot.advanced": {
+    "autoSuggestEnabled": true
+  },
+
+  // Chat preferences
+  "chat.editor.wordWrap": "on",
+  "chat.commandCenter.enabled": true,
+
+  // Agent routing configuration
+  "github.copilot.chat.useProjectContext": true,
+  "github.copilot.chat.followUps": "on",
+
+  // Model preferences (respect auto-routing in copilot-instructions.md)
+  "github.copilot.chat.model": "auto"
+}

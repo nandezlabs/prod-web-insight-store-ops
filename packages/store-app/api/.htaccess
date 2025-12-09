@@ -1,0 +1,146 @@
+# Security Configuration for Store App API
+
+# Place this file in the /api/ directory
+
+# Force HTTPS (redirect HTTP to HTTPS)
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Redirect HTTP to HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Redirect www to non-www (optional)
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+</IfModule>
+
+# Security Headers
+
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header always set X-Frame-Options "DENY"
+    
+    # Prevent MIME sniffing
+    Header always set X-Content-Type-Options "nosniff"
+    
+    # Enable XSS protection
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # HSTS - Force HTTPS for 1 year
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    
+    # Content Security Policy
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'"
+    
+    # Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Permissions Policy
+    Header always set Permissions-Policy "geolocation=(self), microphone=(), camera=(), payment=()"
+    
+    # Remove server information
+    Header always unset Server
+    Header always unset X-Powered-By
+</IfModule>
+
+# Disable directory browsing
+
+Options -Indexes
+
+# Disable server signature
+
+ServerSignature Off
+
+# Protect .htaccess and .env files
+
+<FilesMatch "^\.">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Protect sensitive files
+
+<FilesMatch "\.(env|log|ini|sql|bak|old)$">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Protect config files
+
+<Files "config.php">
+Order allow,deny
+Deny from all
+Allow from localhost
+Allow from 127.0.0.1
+</Files>
+
+# Set default charset
+
+AddDefaultCharset UTF-8
+
+# Enable gzip compression
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/javascript
+</IfModule>
+
+# Set cache control for API responses
+
+<IfModule mod_headers.c>
+    # Don't cache API responses
+    <FilesMatch "\.(php)$">
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule>
+
+# Error pages (optional - customize these)
+
+ErrorDocument 400 /api/error.php?code=400
+ErrorDocument 401 /api/error.php?code=401
+ErrorDocument 403 /api/error.php?code=403
+ErrorDocument 404 /api/error.php?code=404
+ErrorDocument 500 /api/error.php?code=500
+
+# PHP Settings
+
+<IfModule mod_php.c>
+    # Hide PHP version
+    php_flag expose_php Off
+    
+    # Limit file upload size
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    
+    # Increase max execution time for API calls
+    php_value max_execution_time 30
+    
+    # Memory limit
+    php_value memory_limit 128M
+    
+    # Disable dangerous functions
+    php_admin_value disable_functions "exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,show_source"
+</IfModule>
+
+# Limit request methods
+
+<LimitExcept GET POST OPTIONS>
+    Order allow,deny
+    Deny from all
+</LimitExcept>
+
+# Rate limiting (if mod_ratelimit is available)
+
+<IfModule mod_ratelimit.c>
+    <Location /api/>
+        SetOutputFilter RATE_LIMIT
+        SetEnv rate-limit 400
+    </Location>
+</IfModule>
