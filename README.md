@@ -1,6 +1,13 @@
 # Insight - Store Operations Platform
 
-A modern monorepo containing admin dashboard and store operations applications.
+[![Production](https://img.shields.io/badge/status-production-green)](https://github.com/nandezlabs/prod-web-insight-store-ops)
+[![React](https://img.shields.io/badge/React-18-blue)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)](https://www.typescriptlang.org/)
+[![Notion API](https://img.shields.io/badge/Notion-API-black)](https://developers.notion.com/)
+
+A complete store operations management platform with Notion integration. Manage users, stores, inventory, tasks, P&L reports, and real-time messaging in one unified system.
+
+**Repository**: [nandezlabs/prod-web-insight-store-ops](https://github.com/nandezlabs/prod-web-insight-store-ops)
 
 ## 🏗️ Monorepo Structure
 
